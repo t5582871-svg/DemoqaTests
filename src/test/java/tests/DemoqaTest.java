@@ -7,23 +7,25 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 
 public class DemoqaTest {
 
     @BeforeAll
-    static void beforeAll() {
+    static void setupSelenideEnv() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.timeout = 5000; // default 4000
     }
 
     @Test
     void fillFormTest() {
         open("/automation-practice-form");
+
+        executeJavaScript("$('footer').remove();");
+        executeJavaScript("$('#fixedban').remove();");
+
         $("#firstName").setValue("Timur");
         $("#lastName").setValue("Dasaev");
         $("#userEmail").setValue("email@example.ru");
